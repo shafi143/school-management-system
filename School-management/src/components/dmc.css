@@ -1,0 +1,79 @@
+.dmc-container {
+  width: 800px;
+  margin: 20px auto;
+  padding: 25px;
+  background: white;
+  border: 3px solid #2d3436;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.dmc-logo {
+  width: 80px;
+  margin-bottom: 10px;
+}
+
+.dmc-header h1 {
+  margin: 0;
+  color: #2d3436;
+  font-size: 28px;
+}
+
+.dmc-info {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+}
+
+.dmc-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dmc-table th,
+.dmc-table td {
+  border: 1px solid #000;
+  padding: 10px;
+}
+
+.dmc-summary {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-around;
+  font-weight: bold;
+}
+
+.dmc-actions button {
+  margin: 10px;
+  padding: 10px 20px;
+  background: #667eea;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin: 5px;
+}
+
+/* ❌ Hide everything when printing */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  /* ✅ Only show DMC */
+  .print-area,
+  .print-area * {
+    visibility: visible;
+  }
+
+  .print-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  /* ❌ Hide buttons during print */
+  button {
+    display: none !important;
+  }
+}

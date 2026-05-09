@@ -1,0 +1,86 @@
+
+/* ========================= */
+/* DASHBOARD STYLING */
+/* ========================= */
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.dashboard h2 {
+  color: #2d3436;
+  font-size: 2.2em;
+  margin: 0;
+  font-weight: 700;
+}
+
+/* STATS GRID */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* STAT CARDS */
+.stat-card {
+  background: white;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  transition: all 0.3s ease;
+  border-top: 4px solid #667eea;
+}
+
+.stat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 35px rgba(102, 126, 234, 0.25);
+}
+
+.stat-card h3 {
+  margin: 0 0 12px;
+  color: #667eea;
+  font-size: 0.95em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.stat-card p {
+  font-size: 2.5em;
+  margin: 0;
+  color: #2d3436;
+  font-weight: 800;
+}
+
+/* RECENT ACTIVITIES */
+.recent-activities {
+  background: white;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  border-top: 4px solid #764ba2;
+}
+
+.recent-activities h3 {
+  margin-top: 0;
+  color: #2d3436;
+  font-size: 1.4em;
+}
+
+.recent-activities ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recent-activities li {
+  padding: 12px 0;
+  border-bottom: 1px solid #ecf0f1;
+  color: #636e72;
+}
+
+.recent-activities li:last-child {
+  border-bottom: none;
+}

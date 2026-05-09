@@ -1,0 +1,109 @@
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .print-area,
+  .print-area * {
+    visibility: visible;
+  }
+
+  .print-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  button, select {
+    display: none !important;
+  }
+
+  .dmc-container {
+    page-break-after: always;
+  }
+}
+.dmc {
+  border: 2px solid black;
+  padding: 15px;
+  margin: 20px 5px;
+  page-break-after: always;
+  text-align: center;
+}
+
+.school-name {
+  color: red;
+  font-weight: bold;
+  font-size: 25px;
+    letter-spacing: -1px;
+    margin: 10px 0;
+    font-family: cursive;
+}
+
+.logo {
+  width: 180px;
+  margin: 10px auto;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+
+}
+.info p{
+  margin: 5px 0;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+th, td {
+  padding: 8px;
+}
+
+.result {
+     margin-top: 15px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-around;
+}
+.dmc-serial-sect{
+  display: flex;
+ 
+ justify-content: space-between;
+}
+.dmc-body{
+      /* display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+     place-items: center; */
+     display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    place-items: center;
+    padding: 0;
+    text-align: center;
+    flex-wrap: nowrap;
+     
+}
+.result-date{
+  width: 40%;
+  margin: 10px 0;
+  font-size: 12px;
+}
+.footer {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  color: black;
+}

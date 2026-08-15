@@ -1,109 +1,408 @@
-@media print {
-  body * {
-    visibility: hidden;
-  }
+/* =========================
+   SCREEN + PDF STYLE
+========================= */
 
-  .print-area,
-  .print-area * {
-    visibility: visible;
-  }
-
-  .print-area {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-  }
-
-  button, select {
-    display: none !important;
-  }
-
-  .dmc-container {
-    page-break-after: always;
-  }
+#print-area {
+  width: 100%;
+  background: white;
 }
+
 .dmc {
+  width: 190mm;
+  min-height: 270mm;
+  margin: 10px auto;
+  padding: 12px;
   border: 2px solid black;
-  padding: 15px;
-  margin: 20px 5px;
-  page-break-after: always;
+  box-sizing: border-box;
+  background: white;
   text-align: center;
+  page-break-after: always;
+  break-after: page;
+  color: black;
+  page-break-inside: avoid;
+  break-inside: avoid;
+  position: relative;
+}
+
+/* Compact for 9 subjects - Optimized */
+.dmc-9subjects {
+  padding: 10px 12px 5px 12px; /* Reduced bottom padding */
+}
+
+.dmc-9subjects .school-name {
+  font-size: 20px;
+  margin: 5px 0;
+}
+
+.dmc-9subjects .dmc-body {
+  margin: 8px 0;
+}
+
+.dmc-9subjects .info p {
+  margin: 3px 0;
+  font-size: 12px;
+}
+
+.dmc-9subjects table th,
+.dmc-9subjects table td {
+  padding: 6px 8px;
+  font-size: 12px;
+}
+
+.dmc-9subjects .summary-cards {
+  margin: 8px 0 5px 0;
+  gap: 10px;
+}
+
+.dmc-9subjects .summary-card {
+  padding: 6px 4px;
+}
+
+.dmc-9subjects .summary-card-value {
+  font-size: 14px;
+}
+
+.dmc-9subjects .result-row {
+  margin: 5px 0;
+  padding: 5px 10px;
+}
+
+.dmc-9subjects .result-date {
+  margin-top: 5px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  font-size: 10px;
+}
+
+.dmc-9subjects .result-date p {
+  margin: 2px 0;
+}
+
+.dmc-9subjects .footer {
+  margin-top: 8px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  font-size: 11px;
 }
 
 .school-name {
   color: red;
   font-weight: bold;
-  font-size: 25px;
-    letter-spacing: -1px;
-    margin: 10px 0;
-    font-family: cursive;
+  font-size: 24px;
+  letter-spacing: -1px;
+  margin: 10px 0;
+  font-family: cursive;
+  text-align: center;
 }
 
 .logo {
-  width: 180px;
-  margin: 10px auto;
+  width: 100px;
+  height: auto;
+}
+
+.dmc-header {
+  width: 100%;
+}
+
+.dmc-serial-sect {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.dmc-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 12px 0;
+}
+
+.dmc h2 {
+  text-align: center;
+  color: black !important;
+  margin: 10px 0 5px 0;
+  font-size: 18px;
 }
 
 .info {
-    display: flex;
-    justify-content: space-between;
-    margin: 20px 0;
-    flex-direction: column;
-    align-items: center;
-    flex: 1;
+  flex: 1;
+  color: black;
+  text-align: left;
+}
 
+.info p {
+  margin: 4px 0;
+  font-size: 13px;
 }
-.info p{
-  margin: 5px 0;
-}
+
+/* TABLE STYLES */
 table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
-table, th, td {
+table th,
+table td {
   border: 1px solid black;
+  padding: 8px 6px;
+  text-align: center;
+  font-size: 13px;
 }
 
-th, td {
-  padding: 8px;
+table td:first-child {
+  text-align: left;
+  font-weight: 500;
 }
 
-.result {
-     margin-top: 15px;
-    font-weight: bold;
-    display: flex;
-    justify-content: space-around;
+/* Total row styling */
+.table-total-row {
+  background-color: #f5f5f5;
+  font-weight: bold;
 }
-.dmc-serial-sect{
-  display: flex;
- 
- justify-content: space-between;
+
+.table-total-row td {
+  font-weight: bold;
+  background-color: #f0f0f0;
+  padding: 6px 6px;
 }
-.dmc-body{
-      /* display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    align-items: center;
-     place-items: center; */
-     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    place-items: center;
-    padding: 0;
-    text-align: center;
-    flex-wrap: nowrap;
-     
-}
-.result-date{
-  width: 40%;
-  margin: 10px 0;
-  font-size: 12px;
-}
-.footer {
-  margin-top: 30px;
+
+/* SUMMARY CARDS */
+.summary-cards {
   display: flex;
   justify-content: space-between;
+  gap: 12px;
+  margin: 10px 0 8px 0;
+}
+
+.summary-card {
+  flex: 1;
+  padding: 8px 5px;
+  background: #f0f0f0;
+  border-radius: 6px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.summary-card-label {
+  font-size: 11px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.summary-card-value {
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+}
+
+/* RESULT SECTION */
+.result {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 8px 0;
+  padding: 6px 12px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+.result-label {
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+}
+
+.result-value {
+  font-weight: bold;
+  font-size: 15px;
+  color: #000;
+}
+
+/* Position Badge */
+.position-badge {
+  display: inline-block;
+  padding: 4px 15px;
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #000;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 20px;
+  border: 1px solid #daa520;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.position-1 {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #b8860b;
+}
+
+.position-2 {
+  background: linear-gradient(135deg, #c0c0c0, #e8e8e8);
+  color: #555;
+}
+
+.position-3 {
+  background: linear-gradient(135deg, #cd7f32, #e8a870);
+  color: #5c3a1e;
+}
+
+.result-date {
+  margin-top: 8px;
+  margin-bottom: 0;
+  font-size: 11px;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+.result-date p {
+  margin: 3px 0;
+}
+
+.footer {
+  margin-top: 10px;
+  margin-bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
   background: white;
   color: black;
+  page-break-inside: avoid;
+  break-inside: avoid;
+  font-size: 12px;
+}
+
+/* =========================
+   PRINT STYLE - Optimized
+========================= */
+
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+    background: white;
+  }
+
+  button {
+    display: none !important;
+  }
+
+  #print-area {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .dmc {
+    width: 100%;
+    min-height: auto;
+    height: auto;
+    margin: 0;
+    padding: 10mm 10mm 5mm 10mm;
+    border: 2px solid black;
+    page-break-after: always;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    box-sizing: border-box;
+  }
+
+  .dmc:last-child {
+    page-break-after: auto;
+  }
+
+  /* Print compact styles */
+  .school-name {
+    font-size: 18px;
+    margin: 5px 0;
+  }
+
+  .logo {
+    width: 70px;
+  }
+
+  .info p {
+    font-size: 11px;
+    margin: 2px 0;
+  }
+
+  .dmc h2 {
+    font-size: 16px;
+    margin: 5px 0;
+  }
+
+  table th,
+  table td {
+    padding: 5px 4px;
+    font-size: 11px;
+  }
+
+  .summary-card {
+    padding: 4px;
+  }
+
+  .summary-card-label {
+    font-size: 9px;
+  }
+
+  .summary-card-value {
+    font-size: 12px;
+  }
+
+  .result-row {
+    margin: 4px 0;
+    padding: 4px 8px;
+  }
+
+  .result-label {
+    font-size: 11px;
+  }
+
+  .position-badge {
+    padding: 2px 10px;
+    font-size: 11px;
+  }
+
+  .result-date {
+    margin-top: 5px;
+    font-size: 9px;
+  }
+  
+  .result-date p {
+    margin: 2px 0;
+  }
+
+  .footer {
+    margin-top: 6px;
+    font-size: 10px;
+  }
+
+  .dmc-header,
+  .dmc-body,
+  table,
+  .result,
+  .result-date,
+  .footer {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  table tr {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+}
+
+@page {
+  size: A4;
+  margin: 8mm 10mm 5mm 10mm;
 }

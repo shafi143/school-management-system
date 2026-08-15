@@ -31,7 +31,7 @@ exports.getSubjectsByClass = (req, res) => {
   const { className } = req.params;
 
   const sql = `
-    SELECT s.id, s.name
+    SELECT s.id, s.subject_name
     FROM class_subjects cs
     JOIN subjects s ON cs.subject_id = s.id
     WHERE cs.class_name = ?

@@ -10,6 +10,7 @@ function AddSubjects() {
   const loadSubjects = async () => {
     const res = await axios.get("http://localhost:5000/api/subjects/all");
     setSubjects(res.data);
+    console.log(subjects)
   };
 
   useEffect(() => {
@@ -65,7 +66,7 @@ function AddSubjects() {
               checked={selected.includes(sub.id)}
               onChange={() => handleCheck(sub.id)}
             />
-            {sub.name}
+            {sub.subject_name}
           </label>
         ))}
       </div>

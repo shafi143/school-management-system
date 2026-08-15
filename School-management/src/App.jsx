@@ -75,14 +75,16 @@ function App() {
             {auth ? (
               <>
                 <Link to="/">Dashboard</Link>
+          
                 <Link to="/add-student">Add Student</Link>
                 <Link to="/teachers">Teachers</Link>
                 <Link to="/student-by-class">Students</Link>
                 <Link to="/subjects">Subjects</Link>
-                <Link to="/marks">Marks</Link>
+               <Link to="/marks">Marks</Link>
+               <Link to="/results">Results</Link>
                 <Link to="/fees">Fees</Link>
                 <Link to="/reports">Reports</Link>
-                <Link to="/results">Results</Link>
+                
                 <button className="logout-button" onClick={handleLogout} style={{ marginTop: "16px" }}>
                   Logout
                 </button>

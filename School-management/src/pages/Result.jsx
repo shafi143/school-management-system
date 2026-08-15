@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
-import DMC from "../components/DMC";
 import PrintAllDMC from "../components/PrintAllDMCS";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 import "./components.css"
 function Result() {
   const [className, setClassName] = useState("");
   const [examId, setExamId] = useState("");
   const [students, setStudents] = useState([]);
   const [subjects, setSubjects] = useState([]);
-  const [selectedStudent, setSelectedStudent] = useState(null);
   const [showAllDMC, setShowAllDMC] = useState(false);
+  const tableRef = useRef(null);
 
   // 📊 LOAD RESULT
   const getResult = async () => {
@@ -30,28 +31,67 @@ console.log("Exam:", examId);
     }
   };
 
-  const viewDMC = (student) => {
-    setSelectedStudent(student);
-  };
-
-  const saveDMC = async (student) => {
-    try {
-      await axios.post("http://localhost:5000/api/results/save", {
-        className,
-        examId,
-        student
-      });
-
-      alert("DMC saved for " + student.name);
-    } catch (err) {
-      console.log(err);
-      alert("Error saving DMC");
-    }
-  };
-
   // 🖨 OPEN ALL DMC
   const openAllDMC = () => {
     setShowAllDMC(true);
+  };
+
+  // 📥 EXPORT TO PDF
+  const exportToPDF = async () => {
+    if (!tableRef.current) return;
+    
+    try {
+      const canvas = await html2canvas(tableRef.current, { scale: 2, useCORS: true });
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('l', 'mm', 'a4');
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const margin = 10;
+      const imgWidth = pageWidth - margin * 2;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const position = margin;
+
+      pdf.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
+      pdf.save(`Class_${className}_Result_${examId}.pdf`);
+      alert('PDF exported successfully!');
+    } catch (err) {
+      console.log(err);
+      alert('Error exporting PDF');
+    }
+  };
+
+  // 🖨 PRINT RESULT
+  const printResult = async () => {
+    if (!tableRef.current) return;
+    
+    try {
+      const canvas = await html2canvas(tableRef.current);
+      const imgData = canvas.toDataURL('image/png');
+      const printWindow = window.open('', '_blank');
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Class ${className} Result</title>
+            <style>
+              body { margin: 10px; }
+              h2 { text-align: center; }
+              img { max-width: 100%; height: auto; }
+            </style>
+          </head>
+          <body>
+            <h2>Class ${className} - Result</h2>
+            <img src="${imgData}" />
+          </body>
+        </html>
+      `);
+      printWindow.document.close();
+      setTimeout(() => {
+        printWindow.print();
+      }, 250);
+    } catch (err) {
+      console.log(err);
+      alert('Error printing result');
+    }
   };
 
   return (
@@ -87,7 +127,7 @@ console.log("Exam:", examId);
         <>
          
 
-          <table border="1" cellPadding="10">
+          <table ref={tableRef} border="1" cellPadding="10">
             <thead>
               <tr>
                 <th>Roll No</th>
@@ -101,7 +141,6 @@ console.log("Exam:", examId);
                 <th>Total Marks</th>
                 <th>Percentage</th>
                 <th>Position</th>
-                <th>Action</th>
               </tr>
             </thead>
 
@@ -119,16 +158,14 @@ console.log("Exam:", examId);
                   <td>{s.full}</td>
                   <td>{s.percentage}%</td>
                   <td>{s.position}</td>
-
-                  <td>
-                    
-                    <button onClick={() => viewDMC(s)} style={{margin:"5px"}}>View DMC</button>
-                    <button onClick={() => saveDMC(s)} style={{margin:"5px"}}>Save</button>
-                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <div style={{marginTop:"10px"}}>
+            <button onClick={exportToPDF} style={{margin:"5px", background:"orange", color:"white"}}>📥 Export to PDF</button>
+            <button onClick={printResult} style={{margin:"5px", background:"purple", color:"white"}}>🖨 Print Result</button>
+          </div>
         </>
       )}
 {students.length > 0 && (
@@ -139,17 +176,8 @@ console.log("Exam:", examId);
             Print All DMCs
           </button>
   )}
-      {/* 👁 SINGLE DMC */}
-      {selectedStudent && (
-        <DMC
-          student={selectedStudent}
-          className={className}
-          examId={examId}
-          close={() => setSelectedStudent(null)}
-        />
-      )}
 
-      {/* 📄 ALL DMC COMPONENT */}
+      {/*  ALL DMC COMPONENT */}
       {showAllDMC && (
         <PrintAllDMC
           className={className}

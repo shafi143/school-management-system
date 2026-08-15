@@ -7,14 +7,9 @@ const subjectController = require("../controllers/subjectController");
 
 
 
-// 📥 Get all subjects
 router.get("/all", subjectController.getAllSubjects);
-
-// ➕ Assign subjects to class
 router.post("/assign", subjectController.assignSubjectsToClass);
-
-// 📥 Get subjects by class
-router.get("/:className", subjectController.getSubjectsByClass);
+router.get("/class/:className", subjectController.getSubjectsByClass);
 
 
 module.exports = router;

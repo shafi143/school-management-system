@@ -56,7 +56,7 @@ exports.getResult = (req, res) => {
     SELECT 
       students.name,
       students.roll_no,
-      subjects.name AS subject,
+      subjects.subject_name  AS subject,
       marks.marks
     FROM marks
     JOIN students ON students.id = marks.student_id

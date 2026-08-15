@@ -24,7 +24,13 @@ exports.addStudent = (req, res) => {
     sql,
     [roll_no, name, father_name, studentClass, section, gender, date_of_birth, phone, address],
     (err, result) => {
-      if (err) return res.status(500).send(err);
+      if (err) {
+  console.log(err);
+  return res.status(500).json({
+    message: "Database Error",
+    error: err.message
+  });
+}
 
       res.json({
         message: "Student added successfully",

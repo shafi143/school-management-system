@@ -3,9 +3,17 @@ import axios from "axios";
 
 function Marks() {
   const [classes] = useState([
-    "Play Group", "Nursery", "K.G",
-    "1st", "2nd", "3rd", "4th",
-    "5th", "6th", "7th", "8th"
+    "Play Group",
+    "Nursery",
+    "K.G",
+    "1st",
+    "2nd",
+    "3rd",
+    "4th",
+    "5th",
+    "6th",
+    "7th",
+    "8th",
   ]);
 
   const [selectedClass, setSelectedClass] = useState("");
@@ -31,32 +39,30 @@ function Marks() {
   }, []);
 
   // 📥 Load Students + Subjects
-const handleClassChange = async (cls) => {
-  setSelectedClass(cls);
+  const handleClassChange = async (cls) => {
+    setSelectedClass(cls);
 
-  // 🔥 reset previous data
-  setStudents([]);
-  setSubjects([]);
-  setMarksData({});
+    // 🔥 reset previous data
+    setStudents([]);
+    setSubjects([]);
+    setMarksData({});
 
-  try {
-    const studentsRes = await axios.get(
-      `http://localhost:5000/api/students/class/${cls}`
-    );
+    try {
+      const studentsRes = await axios.get(
+        `http://localhost:5000/api/students/class/${cls}`,
+      );
 
-    const subjectsRes = await axios.get(
-      `http://localhost:5000/api/subjects/${cls}`
-    );
+      const subjectsRes = await axios.get(
+        `http://localhost:5000/api/subjects/class/${cls}`,
+      );
 
-    setStudents(studentsRes.data);
-    setSubjects(subjectsRes.data);
-
-  } catch (err) {
-    console.log("Load Error:", err);
-    alert("Error loading data");
-  }
-};
-
+      setStudents(studentsRes.data);
+      setSubjects(subjectsRes.data);
+    } catch (err) {
+      console.log("Load Error:", err);
+      alert("Error loading data");
+    }
+  };
 
   // 📥 LOAD EXISTING MARKS (🔥 AUTO-FILL)
   const loadMarks = async () => {
@@ -64,7 +70,7 @@ const handleClassChange = async (cls) => {
 
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/marks/class/${selectedClass}/exam/${examId}`
+        `http://localhost:5000/api/marks/class/${selectedClass}/exam/${examId}`,
       );
 
       let formatted = {};
@@ -75,7 +81,6 @@ const handleClassChange = async (cls) => {
       });
 
       setMarksData(formatted);
-
     } catch (err) {
       console.log("Marks Load Error:", err);
     }
@@ -90,12 +95,13 @@ const handleClassChange = async (cls) => {
   const handleMarksChange = (studentId, subjectId, value) => {
     setMarksData((prev) => ({
       ...prev,
-      [`${studentId}-${subjectId}`]: value
+      [`${studentId}-${subjectId}`]: value,
     }));
   };
 
-  const filledMarksEntries = Object.entries(marksData).filter(([, value]) =>
-    value !== undefined && value !== null && value.toString().trim() !== ""
+  const filledMarksEntries = Object.entries(marksData).filter(
+    ([, value]) =>
+      value !== undefined && value !== null && value.toString().trim() !== "",
   );
 
   const canSave = selectedClass && examId && filledMarksEntries.length > 0;
@@ -107,8 +113,9 @@ const handleClassChange = async (cls) => {
       return;
     }
 
-    const entriesToSave = Object.entries(marksData).filter(([, value]) =>
-      value !== undefined && value !== null && value.toString().trim() !== ""
+    const entriesToSave = Object.entries(marksData).filter(
+      ([, value]) =>
+        value !== undefined && value !== null && value.toString().trim() !== "",
     );
 
     if (entriesToSave.length === 0) {
@@ -127,7 +134,7 @@ const handleClassChange = async (cls) => {
           student_id: Number(studentId),
           subject_id: Number(subjectId),
           exam_id: Number(examId),
-          marks
+          marks,
         });
       }
 
@@ -141,7 +148,6 @@ const handleClassChange = async (cls) => {
     }
   };
 
-
   return (
     <div className="content">
       <h2>Marks Entry System</h2>
@@ -154,7 +160,9 @@ const handleClassChange = async (cls) => {
       >
         <option value="">Select Class</option>
         {classes.map((cls, i) => (
-          <option key={i} value={cls}>{cls}</option>
+          <option key={i} value={cls}>
+            {cls}
+          </option>
         ))}
       </select>
 
@@ -167,7 +175,7 @@ const handleClassChange = async (cls) => {
         <option value="">Select Exam</option>
         {exams.map((exam) => (
           <option key={exam.id} value={exam.id}>
-            {exam.name}
+            {exam.exam_name}
           </option>
         ))}
       </select>
@@ -179,7 +187,7 @@ const handleClassChange = async (cls) => {
             <tr>
               <th>Student Name</th>
               {subjects.map((sub) => (
-                <th key={sub.id}>{sub.name}</th>
+                <th key={sub.id}>{sub.subject_name}</th>
               ))}
             </tr>
           </thead>
@@ -197,15 +205,17 @@ const handleClassChange = async (cls) => {
                       <input
                         type="number"
                         value={marksData[key] ?? ""}
-                        style={{ width: "60px" }}
+                        style={{
+                          width: "60px",
+                          background: "white",
+                          color: "black",
+                          borderRadius: "3px",
+                          border: "1px solid black",
+                        }}
                         min="0"
                         max="100"
                         onChange={(e) =>
-                          handleMarksChange(
-                            student.id,
-                            sub.id,
-                            e.target.value
-                          )
+                          handleMarksChange(student.id, sub.id, e.target.value)
                         }
                       />
                     </td>

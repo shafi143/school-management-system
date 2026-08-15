@@ -97,6 +97,7 @@
 }
 
 .form-section input {
+      background: white;
   display: block;
   margin: 10px 0;
   padding: 12px;
@@ -105,6 +106,7 @@
   border-radius: 6px;
   font-size: 1em;
   transition: border-color 0.3s ease;
+  color: black;
 }
 
 .form-section input:focus {
